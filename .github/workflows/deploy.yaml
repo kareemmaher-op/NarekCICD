@@ -3,7 +3,7 @@ name: docker deploy
 on:
   push:
     branches:
-      - initial
+      - main
 
 jobs:
   docker:
@@ -18,8 +18,8 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
-        continue-on-error: true 
+          password: ${{ secrets.parcsonal_access_token }}
+        continue-on-error: true  
 
       - name: ⚙Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -40,7 +40,7 @@ jobs:
         with:
           host: ${{ secrets.TRAIN_SERVER_IP }}
           username: ${{ secrets.TRAIN_SERVER_USER }}
-          key: ${{ secrets.TRAIN_SERVER_SSH_KEY }}
+          key: ${{ secrets.KAREEM_SSH_KEY }}
           script: |
             echo " Starting Deployment..."
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_PAT }}
